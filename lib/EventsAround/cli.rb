@@ -1,8 +1,12 @@
 class EventsAround::CLI
-    def call #add error handling
-        puts "Welcome to EventsAround! Where would you like to search? Please enter a city (ex. New York City or Atlanta):"
+    def call 
+        puts "Welcome to EventsAround!" 
+        puts "Where would you like to search? Please enter a city (ex. New York City or Atlanta):"
+        puts "-------------------------"
         input = gets.chomp
         EventsAround::API.fetch(input)
+        puts "-------------------------"
+        sleep(2)
         list_events
         user_selection
         puts "-------------------------"
@@ -16,18 +20,38 @@ class EventsAround::CLI
         end
     end 
 
-    def user_selection #add error handling
+    def user_selection 
+        #add error handling = NoMethodError when enter number not listed
+        #dont allow blank response
+        #allow to exit program
         puts "Please enter the number of the event you want more information about:"
         input = gets.chomp.to_i
         index = input - 1
-        chosen_event = EventsAround::Event.all[index]
-        puts "-------------------------"
-        sleep(1)
-        puts "Date: #{chosen_event.date}"
-        puts "Time: #{chosen_event.time}"
-        puts "Venue: #{chosen_event.venue}"
-        puts "Address: #{chosen_event.address}"
-        #do i have to put out each one or is there a cleaner way to write this it of code?
+        if input < EventsAround::Event.all.length && input > 0
+         chosen_event = EventsAround::Event.all[index]
+         puts "-------------------------"
+         sleep(1)
+         puts <<-REST
+            Event: #{chosen_event.name}
+            Date: #{chosen_event.date}
+            Time: #{chosen_event.time}
+            Venue: #{chosen_event.venue}
+            Address: #{chosen_event.address}
+            Info: #{chosen_event.info}
+            Buy tickets: #{chosen_event.event_url}
+            REST
+         #puts "Event: #{chosen_event.name}"
+         #puts "Date: #{chosen_event.date}"
+         #puts "Time: #{chosen_event.time}"
+         #puts "Venue: #{chosen_event.venue}"
+         #puts "Address: #{chosen_event.address}"
+         #puts "Info: #{chosen_event.info}"
+         #puts "Buy tickets: #{chosen_event.event_url}"
+         #do i have to put out each one or is there a cleaner way to write this it of code?
+        else 
+           puts "Your entry does not match any of the listed options. Please enter the number next to the corresponding event you would like more details about."
+           user_selection
+        end
     end
 
     def loop_or_exit #add error handling/invalid input
@@ -44,6 +68,7 @@ class EventsAround::CLI
             puts "-------------------------"
             loop_or_exit
         elsif input == "b"
+            EventsAround::Event.all.clear
             call
         elsif input == "c"
             exit

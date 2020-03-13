@@ -1,9 +1,11 @@
 class EventsAround::Event
-    attr_accessor :name, :date, :time, :venue, :address
+    attr_accessor :name, :event_url, :info, :date, :time, :venue, :address
     @@all = []
 
-    def initialize(name, date, time, venue, address)
+    def initialize(name, event_url, info, date, time, venue, address)
         @name = name
+        @event_url = event_url
+        @info = info
         @date = date
         @time = time
         @venue = venue
