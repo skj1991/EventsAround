@@ -1,8 +1,10 @@
 class EventsAround::CLI
     def call 
-        puts "Welcome to EventsAround!" 
-        puts "Where would you like to search? Please enter a city (ex. New York City or Atlanta):"
-        puts "-------------------------"
+        puts <<-REST
+        Welcome to EventsAround! 
+        Where would you like to search? Please enter a city..(ex. New York City or New York City, NY):
+        -------------------------
+        REST
         input = gets.chomp
         EventsAround::API.fetch(input)
         puts "-------------------------"
@@ -21,18 +23,16 @@ class EventsAround::CLI
     end 
 
     def user_selection 
-        #add error handling = NoMethodError when enter number not listed
-        #dont allow blank response
-        #allow to exit program
-        puts "Please enter the number of the event you want more information about:"
+        puts "Please enter the number corresponding to the event you want more information about:"
+        puts "-------------------------"
         input = gets.chomp.to_i
         index = input - 1
         if input < EventsAround::Event.all.length && input > 0
          chosen_event = EventsAround::Event.all[index]
          puts "-------------------------"
          sleep(1)
-         puts <<-REST
-            Event: #{chosen_event.name}
+         puts <<-REST 
+            Event: #{chosen_event.name} 
             Date: #{chosen_event.date}
             Time: #{chosen_event.time}
             Venue: #{chosen_event.venue}
@@ -40,26 +40,20 @@ class EventsAround::CLI
             Info: #{chosen_event.info}
             Buy tickets: #{chosen_event.event_url}
             REST
-         #puts "Event: #{chosen_event.name}"
-         #puts "Date: #{chosen_event.date}"
-         #puts "Time: #{chosen_event.time}"
-         #puts "Venue: #{chosen_event.venue}"
-         #puts "Address: #{chosen_event.address}"
-         #puts "Info: #{chosen_event.info}"
-         #puts "Buy tickets: #{chosen_event.event_url}"
-         #do i have to put out each one or is there a cleaner way to write this it of code?
         else 
            puts "Your entry does not match any of the listed options. Please enter the number next to the corresponding event you would like more details about."
            user_selection
         end
     end
 
-    def loop_or_exit #add error handling/invalid input
-        puts "Would you like to..."
-        puts "a. Choose another event"
-        puts "b. Search another city"
-        puts "c. Exit program"
-        puts "-------------------------"
+    def loop_or_exit
+        puts <<-REST
+        Would you like to...
+        a. Choose another event
+        b. Search another city
+        c. Exit program
+        -------------------------
+        REST
         input = gets.chomp.downcase
         if input == "a"
             list_events
@@ -73,9 +67,11 @@ class EventsAround::CLI
         elsif input == "c"
             exit
         else
-            puts "-------------------------"
-            puts "Invalid entry! Please choose from the listed options by entering the corresponding letter."
-            puts "-------------------------"
+            puts <<-REST
+            -------------------------
+            Invalid entry! Please choose from the listed options by entering the corresponding letter.
+            -------------------------
+            REST
             loop_or_exit
         end
     end

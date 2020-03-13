@@ -11,7 +11,6 @@ class EventsAround::Event
         @venue = venue
         @address = address.join(", ")
         @@all << self
-        #binding.pry
     end
 
     def self.all
