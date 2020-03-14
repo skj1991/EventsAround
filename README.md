@@ -1,8 +1,7 @@
 # EventsAround
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/EventsAround`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Welcome to Events Around! 
+This CLI program will allow you to search for upcoming events offered via Ticketmaster in any U.S. city. From a list of events you will be able to get more information such as the venue, location and where to buy tickets. This program is currently unable to search outside of the U.S.
 
 ## Installation
 
@@ -22,7 +21,25 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+To open EventsAround, you must first change directories to access the file on the PC where the program is saved. You will need to execute the following in your Terminal:
+    
+    cd Development
+    cd code
+    cd EventsAround 
+
+Once in the program execute the text below to begin: 
+
+    bin/EventsAround
+
+You will then input the city of your choice to search when prompted:
+
+    Atlanta OR Los Angeles, CA
+
+Then enter the corresponding number of a displayed event to learn more. 
+
+You can also choose to get more information about a different event, search events in another city or exit the program by entering the corresponding letter when prompted. 
+
+Enjoy using Events Around!
 
 ## Development
 

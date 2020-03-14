@@ -17,7 +17,7 @@ class EventsAround::API
              EventsAround::Event.new(name, event_url, info, date, time, venue, address)
             end
         else
-            puts "ERROR: Couldnt find city. Please check spelling or enter another city:"
+            puts "ERROR: Could not find the city. Please check the spelling or enter another city:"
             new_input = gets.chomp
             self.fetch(new_input)
         end

@@ -1,10 +1,9 @@
 class EventsAround::CLI
     def call 
-        puts <<-REST
-        Welcome to EventsAround! 
-        Where would you like to search? Please enter a city..(ex. New York City or New York City, NY):
-        -------------------------
-        REST
+        puts "-------------------------"
+        puts "Welcome to EventsAround!" 
+        puts "Enter a city where would you like to search events..(ex. New York City):"
+        puts "-------------------------"
         input = gets.chomp
         EventsAround::API.fetch(input)
         puts "-------------------------"
@@ -23,7 +22,8 @@ class EventsAround::CLI
     end 
 
     def user_selection 
-        puts "Please enter the number corresponding to the event you want more information about:"
+        puts "-------------------------"
+        puts "Enter the number corresponding to the event you want more information about:"
         puts "-------------------------"
         input = gets.chomp.to_i
         index = input - 1
@@ -31,29 +31,25 @@ class EventsAround::CLI
          chosen_event = EventsAround::Event.all[index]
          puts "-------------------------"
          sleep(1)
-         puts <<-REST 
-            Event: #{chosen_event.name} 
-            Date: #{chosen_event.date}
-            Time: #{chosen_event.time}
-            Venue: #{chosen_event.venue}
-            Address: #{chosen_event.address}
-            Info: #{chosen_event.info}
-            Buy tickets: #{chosen_event.event_url}
-            REST
+            puts "Event: #{chosen_event.name}" 
+            puts "Date: #{chosen_event.date}"
+            puts "Time: #{chosen_event.time}"
+            puts "Venue: #{chosen_event.venue}"
+            puts "Address: #{chosen_event.address}"
+            puts "Info: #{chosen_event.info}"
+            puts "Buy tickets: #{chosen_event.event_url}"
         else 
-           puts "Your entry does not match any of the listed options. Please enter the number next to the corresponding event you would like more details about."
+           puts "INVALID ENTRY: Your entry does not match any of the listed options. Please enter the number next to the corresponding event you would like more details about."
            user_selection
         end
     end
 
     def loop_or_exit
-        puts <<-REST
-        Would you like to...
-        a. Choose another event
-        b. Search another city
-        c. Exit program
-        -------------------------
-        REST
+        puts "Would you like to...?"
+        puts "a. Choose another event"
+        puts "b. Search another city"
+        puts "c. Exit program"
+        puts "-------------------------"
         input = gets.chomp.downcase
         if input == "a"
             list_events
@@ -65,13 +61,14 @@ class EventsAround::CLI
             EventsAround::Event.all.clear
             call
         elsif input == "c"
+            puts "-------------------------"
+            puts "Thank you for using Events Around!"
+            puts "-------------------------"
             exit
         else
-            puts <<-REST
-            -------------------------
-            Invalid entry! Please choose from the listed options by entering the corresponding letter.
-            -------------------------
-            REST
+            puts "-------------------------"
+            puts "INVALID ENTRY: Choose from the listed options by entering the corresponding letter."
+            puts "-------------------------"
             loop_or_exit
         end
     end
