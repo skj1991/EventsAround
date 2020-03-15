@@ -33,7 +33,7 @@ Once in the program execute the text below to begin:
 
 You will then input the city of your choice to search when prompted:
 
-    Atlanta OR Los Angeles, CA
+    ex. Atlanta OR Los Angeles
 
 Then enter the corresponding number of a displayed event to learn more. 
 
