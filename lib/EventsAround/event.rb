@@ -16,4 +16,8 @@ class EventsAround::Event
     def self.all
         @@all
     end
+
+    def self.sort_by_date
+        @@all.sort_by { |event| event.date }
+    end
 end

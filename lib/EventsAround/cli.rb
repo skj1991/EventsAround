@@ -16,7 +16,7 @@ class EventsAround::CLI
     end
 
     def list_events
-        EventsAround::Event.all.each.with_index(1) do |event, index|
+        EventsAround::Event.sort_by_date.each.with_index(1) do |event, index|
         puts "#{index}. #{event.name}"
         end
     end 
